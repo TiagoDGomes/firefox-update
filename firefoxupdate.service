@@ -1,0 +1,10 @@
+[Unit]
+Description=Firefox Update
+Wants=firefoxupdate.timer
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/firefox-update
+
+[Install]
+WantedBy=multi-user.target
