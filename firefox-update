@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+firefox_path="/opt/firefox"
+download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=pt-BR"
+firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
+
+if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
+    echo "--- Cleaning old versions of Firefox..."
+    rm -rf $firefox_path
+    mkdir -p $firefox_path
+    echo "--- Downloading Firefox $firefox_version..."
+    wget "$download_url" -q -O /tmp/firefox.tar.bz2 > /dev/null
+    echo "--- Extracting Firefox $firefox_version..."
+    tar xvf /tmp/firefox.tar.bz2 -C $firefox_path/ > /dev/null
+    echo "--- Moving Firefox $firefox_version..."
+    mv $firefox_path/firefox $firefox_path/$firefox_version
+    echo "--- Creating links..."
+    ln -f -s -r $firefox_path/$firefox_version $firefox_path/current
+    ln -f -s $firefox_path/current/firefox /usr/bin/firefox
+    echo "--- Downloading icon..."
+    wget "https://design.firefox.com/product-identity/firefox/firefox/firefox-logo.png" -q -O $firefox_path/firefox.png > /dev/null
+    echo "--- Cleaning..."
+    rm /tmp/firefox.tar.bz2 
+fi
+echo "--- Firefox $firefox_version: OK."
