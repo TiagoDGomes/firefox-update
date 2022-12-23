@@ -1,0 +1,10 @@
+[Unit]
+Description=Firefox Update Timer
+Requires=firefoxupdate.service
+
+[Timer]
+Unit=firefoxupdate.service
+OnCalendar=*-*-* *:*/30:00
+
+[Install]
+WantedBy=timers.target
