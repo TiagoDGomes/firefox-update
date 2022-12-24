@@ -8,10 +8,10 @@ url_installer="https://raw.githubusercontent.com/TiagoDGomes/linux-firefox-updat
 wget "$url_installer/firefoxupdate.service" -q -O /etc/systemd/system/firefoxupdate.service
 wget "$url_installer/firefoxupdate.timer" -q -O /etc/systemd/system/firefoxupdate.timer
 wget "$url_installer/firefox-update"  -q -O /usr/local/sbin/firefox-update
+wget "$url_installer/firefox.desktop" -q -O /usr/local/share/applications/firefox.desktop
 
 chmod +x /usr/local/sbin/firefox-update
 
 systemctl daemon-reload
 systemctl enable firefoxupdate
 systemctl start firefoxupdate
-
