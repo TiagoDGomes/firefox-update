@@ -1,1 +1,17 @@
 #!/usr/bin/env bash
+
+apt remove -y firefox
+snap remove --purge firefox
+
+url_installer="https://raw.githubusercontent.com/TiagoDGomes/linux-firefox-update/main"
+
+wget "$url_installer/firefoxupdate.service" -q -O /etc/systemd/system/firefoxupdate.service
+wget "$url_installer/firefoxupdate.timer" -q -O /etc/systemd/system/firefoxupdate.timer
+wget "$url_installer/firefox-update"  -q -O /usr/local/sbin/firefox-update
+
+chmod +x /usr/local/sbin/firefox-update
+
+systemctl daemon-reload
+systemctl enable firefox-update
+systemctl start firefox-update
+
