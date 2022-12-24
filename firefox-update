@@ -14,11 +14,11 @@ if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
     wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
     echo "- Extracting Firefox $firefox_version..."
     tar xf /tmp/firefox.tar.bz2 -C $firefox_path/ 
+    echo "- Moving Firefox $firefox_version..."
+    mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
     if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
         echo "- Error!"
     else
-        echo "- Moving Firefox $firefox_version..."
-        mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
         echo "- Creating links..."
         ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
         ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
