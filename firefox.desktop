@@ -1,10 +1,13 @@
 [Desktop Entry]
 Name=Firefox
-Exec=firefox
+Exec=firefox %u
 Icon=/opt/firefox/firefox.png
 Type=Application
 Terminal=false
-Categories=Network;WebBrowser
+Categories=Application;Internet;Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;application/xml;application/vnd.mozilla.xul+xml;application/rss+xml;application/rdf+xml;image/gif;image/jpeg;image/png;
+StartupWMClass=Firefox
+StartupNotify=true
 Name[ar]=متصفح الوِب فَيَرفُكْس
 Name[ca]=Navegador web Firefox
 Name[cs]=Firefox Webový prohlížeč
@@ -23,7 +26,7 @@ Name[nn]=Firefox Nettlesar
 Name[no]=Firefox Nettleser
 Name[pl]=Przeglądarka WWW Firefox
 Name[pt]=Firefox Navegador Web
-Name[pt_BR]=Navegador Web Firefox
+Name[pt_BR]=Firefox Navegador Web
 Name[sk]=Firefox - internetový prehliadač
 Name[sv]=Webbläsaren Firefox
 Comment=Browse the World Wide Web
