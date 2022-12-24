@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 firefox_path="/opt/firefox"
-lang=$(locale | grep LANG= | cut -d= -f2 | cut -d "." -f1)
+lang=$(locale | grep LANG= | cut -d= -f2 | cut -d "." -f1 | tr '_' '-')
 download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=$lang"
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
 
