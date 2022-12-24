@@ -13,16 +13,21 @@ if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
     echo "- Downloading Firefox $firefox_version..."
     wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
     echo "- Extracting Firefox $firefox_version..."
-    tar xvf /tmp/firefox.tar.bz2 -C $firefox_path/ > /dev/null
-    echo "- Moving Firefox $firefox_version..."
-    mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
-    echo "- Creating links..."
-    ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
-    ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
-    echo "- Downloading icon..."
-    wget "$icon_url" -q -O "$firefox_path/firefox.png" > /dev/null
-    echo "- Cleaning..."
-    rm "/tmp/firefox.tar.bz2" 
-    echo "$firefox_version" > "$firefox_path/version"
+    tar xf /tmp/firefox.tar.bz2 -C $firefox_path/ 
+    if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
+        echo "- Error!"
+    else
+        echo "- Moving Firefox $firefox_version..."
+        mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
+        echo "- Creating links..."
+        ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
+        ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
+        echo "- Downloading icon..."
+        wget "$icon_url" -q -O "$firefox_path/firefox.png" > /dev/null
+        echo "- Cleaning..."
+        rm "/tmp/firefox.tar.bz2" 
+        echo "$firefox_version" > "$firefox_path/version"
+        echo "- Firefox $firefox_version: OK."
+    fi
 fi
-echo "- Firefox $firefox_version: OK."
+
