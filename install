@@ -12,6 +12,6 @@ wget "$url_installer/firefox-update"  -q -O /usr/local/sbin/firefox-update
 chmod +x /usr/local/sbin/firefox-update
 
 systemctl daemon-reload
-systemctl enable firefox-update
-systemctl start firefox-update
+systemctl enable firefoxupdate
+systemctl start firefoxupdate
 
