@@ -8,26 +8,30 @@ firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
 
 if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
     mkdir -p "$firefox_path"
-    echo "- Downloading Firefox $firefox_version..."
-    wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
-    echo "- Extracting Firefox $firefox_version..."
-    tar xf /tmp/firefox.tar.bz2 -C $firefox_path/ 
-    echo "- Moving Firefox $firefox_version..."
-    mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
-    if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
-        echo "- Error!"
+    if [ ! -d "$firefox_path" ]; then
+        echo "- Error. $firefox_path doesn't exist!"
     else
-        [ -f "$firefox_path/next_version_remove" ] && rm $firefox_path/$(cat "$firefox_path/next_version_remove")    
-        [ -f "$firefox_path/version" ] && mv "$firefox_path/version" "$firefox_path/next_version_remove"
-        echo "- Creating links..."
-        ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
-        ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
-        echo "- Downloading icon..."
-        wget "$icon_url" -q -O "$firefox_path/firefox.png" > /dev/null
-        echo "- Cleaning..."
-        rm "/tmp/firefox.tar.bz2" 
-        echo "$firefox_version" > "$firefox_path/version"
-        echo "- Firefox $firefox_version: OK."
+        echo "- Downloading Firefox $firefox_version..."
+        wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
+        echo "- Extracting Firefox $firefox_version..."
+        tar xf /tmp/firefox.tar.bz2 -C $firefox_path/ 
+        echo "- Moving Firefox $firefox_version..."
+        mv "$firefox_path/firefox" "$firefox_path/$firefox_version"
+        if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
+            echo "- Error!"
+        else
+            [ -f "$firefox_path/next_version_remove" ] && rm $firefox_path/$(cat "$firefox_path/next_version_remove")    
+            [ -f "$firefox_path/version" ] && mv "$firefox_path/version" "$firefox_path/next_version_remove"
+            echo "- Creating links..."
+            ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
+            ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
+            echo "- Downloading icon..."
+            wget "$icon_url" -q -O "$firefox_path/firefox.png" > /dev/null
+            echo "- Cleaning..."
+            rm "/tmp/firefox.tar.bz2" 
+            echo "$firefox_version" > "$firefox_path/version"
+            echo "- Firefox $firefox_version: OK."
+        fi
     fi
 fi
 
