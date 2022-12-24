@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 firefox_path="/opt/firefox"
-download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=pt-BR"
+download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64"
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
 
 if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
