@@ -7,8 +7,6 @@ icon_url="https://design.firefox.com/product-identity/firefox/firefox/firefox-lo
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
 
 if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
-    [ -f "$firefox_path/next_version_remove" ] && rm $firefox_path/$(cat "$firefox_path/next_version_remove")    
-    [ -f "$firefox_path/version" ] && mv "$firefox_path/version" "$firefox_path/next_version_remove"
     mkdir -p "$firefox_path"
     echo "- Downloading Firefox $firefox_version..."
     wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
@@ -19,6 +17,8 @@ if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
     if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
         echo "- Error!"
     else
+        [ -f "$firefox_path/next_version_remove" ] && rm $firefox_path/$(cat "$firefox_path/next_version_remove")    
+        [ -f "$firefox_path/version" ] && mv "$firefox_path/version" "$firefox_path/next_version_remove"
         echo "- Creating links..."
         ln -f -s -r "$firefox_path/$firefox_version" "$firefox_path/current"
         ln -f -s "$firefox_path/$firefox_version/firefox" "/usr/bin/firefox"
