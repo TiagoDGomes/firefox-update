@@ -4,7 +4,8 @@ Requires=firefoxupdate.service
 
 [Timer]
 Unit=firefoxupdate.service
-OnCalendar=*-*-* *:*/30:00
+OnBootSec=2min
+RandomizedDelaySec=2400
 
 [Install]
 WantedBy=timers.target
