@@ -8,13 +8,12 @@ fi
 download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=$lang"
 icon_url="https://studio-assets.supernova.io/design-systems/18795/445b7756-d355-410d-a79b-4add2c4550b1.png"
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
-
 if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
     mkdir -p "$firefox_path"
     if [ ! -d "$firefox_path" ]; then
         echo "- Error. $firefox_path doesn't exist!"
     else
-        echo "- Downloading Firefox $firefox_version..."
+        echo "- Downloading Firefox $firefox_version ($download_url)..."
         wget "$download_url" -q -O "/tmp/firefox.tar.bz2" > /dev/null
         echo "- Extracting Firefox $firefox_version..."
         tar xf /tmp/firefox.tar.bz2 -C $firefox_path/ 
