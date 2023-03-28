@@ -2,6 +2,9 @@
 
 firefox_path="/opt/firefox"
 lang=$(locale | grep LANG= | cut -d= -f2 | cut -d "." -f1 | tr '_' '-')
+if [ "$lang" == "C" ] ; then
+    lang = ""
+fi
 download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=$lang"
 icon_url="https://studio-assets.supernova.io/design-systems/18795/445b7756-d355-410d-a79b-4add2c4550b1.png"
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
