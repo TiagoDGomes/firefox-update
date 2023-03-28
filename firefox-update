@@ -8,7 +8,11 @@ fi
 download_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=$lang"
 icon_url="https://studio-assets.supernova.io/design-systems/18795/445b7756-d355-410d-a79b-4add2c4550b1.png"
 firefox_version=$(curl -s "$download_url" | cut -d"/" -f 7)
-if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then
+if [ ! -f "$firefox_path/$firefox_version/firefox" ]; then    
+    # libs
+    if [ $(whereis apt | cut -f 2 -d ":" | tr -d " " | wc -c) -gt 2 ]; then  
+        apt install -y libgtkd-3-0 libasound2 libdbus-glib-1-2 libx11-xcb1
+    fi
     mkdir -p "$firefox_path"
     if [ ! -d "$firefox_path" ]; then
         echo "- Error. $firefox_path doesn't exist!"
